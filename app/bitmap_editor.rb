@@ -7,12 +7,12 @@ class BitmapEditor
       print '> '
       input = gets.chomp
       case input
-        when '?'
-          show_help
-        when 'X'
-          exit_console
-        else
-          puts 'unrecognised command :('
+      when '?'
+        show_help
+      when 'X'
+        exit_console
+      else
+        puts 'unrecognised command :('
       end
     end
   end
