@@ -81,7 +81,7 @@ describe Command do
 
     context 'valid command' do
       let(:should_raise_invalid_params_error) do
-        expect { command }.to raise_error(Command::InvalidParamsError)
+        expect { command }.to raise_error(Command::InvalidFormatError)
       end
 
       context '`I`' do
@@ -107,6 +107,9 @@ describe Command do
             expect(command.type).to eq('I')
             expect(command.x).to eq(5)
             expect(command.y).to eq(6)
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to be_nil
           end
         end
       end
@@ -123,6 +126,11 @@ describe Command do
           let(:input) { 'C' }
           it 'should set type value' do
             expect(command.type).to eq('C')
+            expect(command.x).to be_nil
+            expect(command.y).to be_nil
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to be_nil
           end
         end
       end
@@ -150,6 +158,8 @@ describe Command do
             expect(command.type).to eq('L')
             expect(command.x).to eq(5)
             expect(command.y).to eq(6)
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
             expect(command.colour).to eq('C')
           end
         end
@@ -177,6 +187,8 @@ describe Command do
           it 'should set type, x, y_range and colour values' do
             expect(command.type).to eq('V')
             expect(command.x).to eq(1)
+            expect(command.y).to be_nil
+            expect(command.x_range).to be_nil
             expect(command.y_range).to eq(1..2)
             expect(command.colour).to eq('C')
           end
@@ -206,6 +218,8 @@ describe Command do
             expect(command.type).to eq('H')
             expect(command.x_range).to eq(1..2)
             expect(command.y).to eq(2)
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
             expect(command.colour).to eq('C')
           end
         end
@@ -223,6 +237,11 @@ describe Command do
           let(:input) { 'S' }
           it 'should set type value' do
             expect(command.type).to eq('S')
+            expect(command.x).to be_nil
+            expect(command.y).to be_nil
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to be_nil
           end
         end
       end
@@ -239,6 +258,11 @@ describe Command do
           let(:input) { '?' }
           it 'should set type value' do
             expect(command.type).to eq('?')
+            expect(command.x).to be_nil
+            expect(command.y).to be_nil
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to be_nil
           end
         end
       end
@@ -255,6 +279,11 @@ describe Command do
           let(:input) { 'X' }
           it 'should set type value' do
             expect(command.type).to eq('X')
+            expect(command.x).to be_nil
+            expect(command.y).to be_nil
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to be_nil
           end
         end
       end
