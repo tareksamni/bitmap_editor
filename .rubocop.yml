@@ -6,11 +6,14 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-Metrics/MethodLength:
-  Enabled: false
-
 Style/BlockComments:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
   Enabled: false
