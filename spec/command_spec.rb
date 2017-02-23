@@ -12,7 +12,7 @@ describe Command do
 
     context 'valid input format' do
       let(:should_not_raise_error) do
-        expect { command }.to_not raise_error(Command::InvalidFormatError)
+        expect { command }.to_not raise_error
       end
 
       context '`I M N`' do
@@ -156,8 +156,8 @@ describe Command do
           let(:input) { 'L 1 2 C' }
           it 'should set type, x, y and colour values' do
             expect(command.type).to eq('L')
-            expect(command.x).to eq(5)
-            expect(command.y).to eq(6)
+            expect(command.x).to eq(1)
+            expect(command.y).to eq(2)
             expect(command.x_range).to be_nil
             expect(command.y_range).to be_nil
             expect(command.colour).to eq('C')
@@ -218,7 +218,7 @@ describe Command do
             expect(command.type).to eq('H')
             expect(command.x_range).to eq(1..2)
             expect(command.y).to eq(2)
-            expect(command.x_range).to be_nil
+            expect(command.x).to be_nil
             expect(command.y_range).to be_nil
             expect(command.colour).to eq('C')
           end
