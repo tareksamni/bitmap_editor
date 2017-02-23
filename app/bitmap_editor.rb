@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class BitmapEditor
-
   def run
     @running = true
     puts 'type ? for help'
