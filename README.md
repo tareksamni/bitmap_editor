@@ -23,7 +23,7 @@ This project is using:
 + rubocop gem as a main codeing style guide. Config can be found in [.rubocop.yml][4].
 + [Docker][5] to run the application without any dependecies using docker engine.
 
-## Using Docker
+## Using Docker (Build from soruce)
 
 [Install Docker Engine][6] on your machine to be able to follow these steps.
 
@@ -43,6 +43,23 @@ docker run -it bitmap_editor:target_git_commit_sha "ruby runner.rb"
 + Run tests on a docker container
 ```shell
 docker run -it bitmap_editor:target_git_commit_sha "rspec"
+```
+
+## Using Docker (Pull from docker hub)
+
+[Install Docker Engine][6] on your machine to be able to follow these steps.
+
+run `docker --version` to make sure that docker is installed and running successfully. You should get a message like `Docker version 1.12.3, build 6b644ec`. Now you follow these steps:
+
++ Run the application on a docker container
+
+```shell
+docker run -it tareksamni/bitmap_editor:latest "ruby runner.rb"
+```
+
++ Run tests on a docker container
+```shell
+docker run -it tareksamni/bitmap_editor:latest "rspec"
 ```
 
 ## Without Docker
