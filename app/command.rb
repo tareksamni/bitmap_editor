@@ -7,6 +7,7 @@ class Command
   VALID_TYPES = %w(I C L V H S ? X).freeze
   VALID_FORMAT_REGEX = /^([A-Z|\?])\s*(\d*)\s*(\d*)\s*(\d*)\s*([A-Z]*)$/
   INVALID_ERROR_MSG = 'Invalid format for the command, ? for help'
+  INVALID_COMMAND_MSG = "Invalid command, possible commands are: #{VALID_TYPES.join(', ')}"
 
   attr_accessor :type, :x, :y, :x_range, :y_range, :colour
 
@@ -39,7 +40,7 @@ class Command
   end
 
   def validate_type!
-    raise InvalidCommandError unless VALID_TYPES.include?(@type)
+    raise InvalidCommandError, INVALID_COMMAND_MSG unless VALID_TYPES.include?(@type)
   end
 
   def new_image_params!(params)
