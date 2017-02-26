@@ -38,13 +38,13 @@ X - Terminate the session"
     command = Command.new(input)
     case command.type
     when 'I'
-      @bitmap = new_bitmap(command.x, command.y)
+      @bitmap = new_bitmap(command.y, command.x)
     when 'C'
       validate_bitmap!
       @bitmap = new_bitmap
     when 'L'
       validate_bitmap!
-      @bitmap.set_colour(command.x, command.y, command.colour)
+      @bitmap.set_colour(command.y, command.x, command.colour)
     when 'V'
       validate_bitmap!
       @bitmap.set_vertical_colour_range(command.x, command.y_range, command.colour)
@@ -60,14 +60,14 @@ X - Terminate the session"
     end
   end
 
-  def new_bitmap(x = nil, y = nil)
+  def new_bitmap(y = nil, x = nil)
     if x.nil? || y.nil?
       validate_bitmap!
-      x = @bitmap.row_size
-      y = @bitmap.column_size
+      x = @bitmap.column_size
+      y = @bitmap.row_size
     end
     raise BadBitmapError, BAD_BITMAP_DIMENSION_MSG if x > 250 || y > 250 || !x.positive? || !y.positive?
-    Bitmap.build(x, y) { Pixel.new }
+    Bitmap.build(y, x) { Pixel.new }
   end
 
   def validate_bitmap!

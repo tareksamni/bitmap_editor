@@ -6,28 +6,28 @@ class Bitmap < Matrix
   PixelNotFoundError = Class.new(StandardError)
   PIXEL_NOT_FOUND_MSG = 'Pixel not found'
 
-  def [](x, y)
-    @rows.fetch(x - 1) { return nil }[y - 1]
+  def [](y, x)
+    @rows.fetch(y - 1) { return nil }[x - 1]
   end
 
-  def set_colour(x, y, colour)
-    validate_coordinates!(x, y)
-    pixel = self[x, y]
+  def set_colour(y, x, colour)
+    validate_coordinates!(y, x)
+    pixel = self[y, x]
     raise PixelNotFoundError, PixelNotFoundError if pixel.nil?
     pixel.colour = colour
   end
 
   def set_vertical_colour_range(x, y_range, colour)
-    validate_range!(y_range, column_size)
+    validate_range!(y_range, row_size)
     y_range.each do |y|
-      set_colour(x, y, colour)
+      set_colour(y, x, colour)
     end
   end
 
   def set_horizontal_colour_range(x_range, y, colour)
-    validate_range!(x_range, row_size)
+    validate_range!(x_range, column_size)
     x_range.each do |x|
-      set_colour(x, y, colour)
+      set_colour(y, x, colour)
     end
   end
 
@@ -50,16 +50,16 @@ class Bitmap < Matrix
     not_nil && sorted_range && is_range && within_correct_range
   end
 
-  def validate_coordinates!(x, y)
-    out_of_image__coordinates = "X(#{x}), Y(#{y}) should be between 1,1 and #{row_size}, #{column_size}"
-    raise OutOfImageCoordinatesError, out_of_image__coordinates unless valid_coordinates?(x, y)
+  def validate_coordinates!(y, x)
+    out_of_image__coordinates = "X(#{x}), Y(#{y}) should be between 1,1 and #{column_size}, #{row_size}"
+    raise OutOfImageCoordinatesError, out_of_image__coordinates unless valid_coordinates?(y, x)
   end
 
-  def valid_coordinates?(x, y)
-    x.positive? && y.positive? && x.is_a?(Integer) && y.is_a?(Integer) && within_accepted_range?(x, y)
+  def valid_coordinates?(y, x)
+    y.positive? && x.positive? && y.is_a?(Integer) && x.is_a?(Integer) && within_accepted_range?(y, x)
   end
 
-  def within_accepted_range?(x, y)
-    x <= row_size && y <= column_size
+  def within_accepted_range?(y, x)
+    y <= row_size && x <= column_size
   end
 end

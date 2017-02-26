@@ -39,8 +39,8 @@ describe Bitmap do
         it 'should set color in y range' do
           bitmap.set_vertical_colour_range(1, 1..2, 'X')
           expect(bitmap[1, 1].to_s).to eq('X')
-          expect(bitmap[1, 2].to_s).to eq('X')
-          expect(bitmap[1, 3].to_s).to eq('O')
+          expect(bitmap[2, 1].to_s).to eq('X')
+          expect(bitmap[3, 1].to_s).to eq('O')
         end
       end
 
@@ -56,10 +56,10 @@ describe Bitmap do
       context 'with valid range' do
         it 'should set color in x range' do
           bitmap.set_horizontal_colour_range(1..3, 3, 'C')
-          expect(bitmap[1, 3].to_s).to eq('C')
-          expect(bitmap[2, 3].to_s).to eq('C')
+          expect(bitmap[3, 1].to_s).to eq('C')
+          expect(bitmap[3, 2].to_s).to eq('C')
           expect(bitmap[3, 3].to_s).to eq('C')
-          expect(bitmap[4, 3].to_s).to eq('O')
+          expect(bitmap[3, 4].to_s).to eq('O')
         end
       end
 

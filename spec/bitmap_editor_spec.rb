@@ -76,7 +76,7 @@ describe BitmapEditor do
           context 'with bitmap initialized' do
             it 'should color the selected pixel with given color' do
               bitmap_editor.bitmap = Bitmap.build(5, 5) { Pixel.new }
-              expect(bitmap_editor.bitmap).to receive(:set_colour).with(1, 2, 'C')
+              expect(bitmap_editor.bitmap).to receive(:set_colour).with(2, 1, 'C')
               single_run
             end
           end
