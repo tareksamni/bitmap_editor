@@ -250,6 +250,41 @@ describe BitmapEditor do
           end
         end
       end
+      context 'with `?` command' do
+        context 'with no params' do
+          let(:input) { '?' }
+          context 'with bitmap initialized' do
+            it 'should print the help message' do
+              bitmap_editor.bitmap = Bitmap.build(5, 5) { Pixel.new }
+              expect(bitmap_editor).to receive(:puts).with(BitmapEditor::HELP_OUTPUT)
+              single_run
+            end
+          end
+
+          context 'without bitmap initialized' do
+            it 'should print the help message' do
+              expect(bitmap_editor).to receive(:puts).with(BitmapEditor::HELP_OUTPUT)
+              single_run
+            end
+          end
+        end
+
+        context 'with wrong params' do
+          let(:input) { '? 1' }
+          context 'with bitmap initialized' do
+            it 'should raise an error' do
+              bitmap_editor.bitmap = Bitmap.build(5, 5) { Pixel.new }
+              expect { single_run }.to raise_error(Command::InvalidFormatError)
+            end
+          end
+
+          context 'without bitmap initialized' do
+            it 'should raise an error' do
+              expect { single_run }.to raise_error(Command::InvalidFormatError)
+            end
+          end
+        end
+      end
     end
   end
 end
