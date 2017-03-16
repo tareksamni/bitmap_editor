@@ -21,6 +21,10 @@ class Pixel
     @colour = colour
   end
 
+  def same_colour?(other)
+    @colour == other.colour
+  end
+
   def to_s
     @colour
   end
