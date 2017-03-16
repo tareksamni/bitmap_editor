@@ -9,6 +9,7 @@ class BitmapEditor
 I M N - Create a new M x N image with all pixels coloured white (O).
 C - Clears the table, setting all pixels to white (O).
 L X Y C - Colours the pixel (X,Y) with colour C.
+F X Y C - Colours the pixel (X,Y) with its region with colour C.
 V X Y1 Y2 C - Draw a vertical segment of colour C in column X \
 between rows Y1 and Y2 (inclusive).
 H X1 X2 Y C - Draw a horizontal segment of colour C in row Y \
@@ -45,6 +46,9 @@ X - Terminate the session"
     when 'L'
       validate_bitmap!
       @bitmap.set_colour(command.y, command.x, command.colour)
+    when 'F'
+      validate_bitmap!
+      @bitmap.fill(command.y, command.x, command.colour)
     when 'V'
       validate_bitmap!
       @bitmap.set_vertical_colour_range(command.x, command.y_range, command.colour)

@@ -105,6 +105,41 @@ describe BitmapEditor do
         end
       end
 
+      context 'with `F` command' do
+        context 'with correct params' do
+          let(:input) { 'F 1 2 C' }
+          context 'with bitmap initialized' do
+            it "should color the selected pixel's region with given color" do
+              bitmap_editor.bitmap = Bitmap.build(5, 5) { Pixel.new }
+              expect(bitmap_editor.bitmap).to receive(:fill).with(2, 1, 'C')
+              single_run
+            end
+          end
+
+          context 'without bitmap initialized' do
+            it 'should raise an error' do
+              expect { single_run }.to raise_error(BitmapEditor::BadBitmapError)
+            end
+          end
+        end
+
+        context 'with wrong params' do
+          let(:input) { 'F 1' }
+          context 'with bitmap initialized' do
+            it 'should raise an error' do
+              bitmap_editor.bitmap = Bitmap.build(5, 5) { Pixel.new }
+              expect { single_run }.to raise_error(Command::InvalidFormatError)
+            end
+          end
+
+          context 'without bitmap initialized' do
+            it 'should raise an error' do
+              expect { single_run }.to raise_error(Command::InvalidFormatError)
+            end
+          end
+        end
+      end
+
       context 'with `V` command' do
         context 'with correct params' do
           let(:input) { 'V 1 1 3 A' }
