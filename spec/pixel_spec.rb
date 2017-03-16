@@ -2,6 +2,7 @@
 describe Pixel do
   let(:pixel) { Pixel.new }
   let(:coloured_pixel) { Pixel.from_colour('A') }
+  let(:another_coloured_pixel) { Pixel.from_colour('A') }
 
   describe '#initialize' do
     it 'should initialize with default colour `O`' do
@@ -12,6 +13,13 @@ describe Pixel do
   describe '#from_colour' do
     it 'should initialize pixel and set colour as given' do
       expect(coloured_pixel.colour).to eq('A')
+    end
+  end
+
+  describe '#same_colour?' do
+    it 'should return true if same colour or false otherwise' do
+      expect(coloured_pixel.same_colour?(pixel)).to be false
+      expect(coloured_pixel.same_colour?(another_coloured_pixel)).to be true
     end
   end
 
