@@ -6,9 +6,9 @@ class Pixel
   attr_reader :colour
 
   def self.from_colour(colour)
-    p = new
-    p.colour = colour
-    p
+    new.tap do |p|
+      p.colour = colour
+    end
   end
 
   def initialize
