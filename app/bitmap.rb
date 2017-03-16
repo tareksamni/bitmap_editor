@@ -6,6 +6,13 @@ class Bitmap < Matrix
   PixelNotFoundError = Class.new(StandardError)
   PIXEL_NOT_FOUND_MSG = 'Pixel not found'
 
+  NEIGHBOURS_OFFSIT = [
+    [-1, 0], # Up
+    [0, 1],  # Right
+    [1, 0],  # Down
+    [0, -1]  # Left
+  ].freeze
+
   def [](y, x)
     @rows.fetch(y - 1) { return nil }[x - 1]
   end
@@ -31,15 +38,36 @@ class Bitmap < Matrix
     end
   end
 
+  def fill(y, x, colour)
+    validate_coordinates!(y, x)
+    pixel = self[y, x]
+    raise PixelNotFoundError, PIXEL_NOT_FOUND_MSG if pixel.nil?
+    target_pixel = pixel.dup
+    pixel.colour = colour
+    neighbours(y, x).each do |neighbour_y, neighbour_x|
+      fill(neighbour_y, neighbour_x, colour) if should_fill?(neighbour_y, neighbour_x, target_pixel)
+    end
+  end
+
   def to_s
     to_a.map { |cols| cols.map(&:to_s).join('') }.join("\n")
   end
 
   private
 
+  def should_fill?(y, x, target_pixel)
+    valid_coordinates?(y, x) && self[y, x].same_colour?(target_pixel)
+  end
+
   def validate_range!(range, max)
     error_message = "Provided range should be between 1 and #{max} in ascending order"
     raise InvalidRangeError, error_message unless valid_range?(range, max)
+  end
+
+  def neighbours(y, x)
+    NEIGHBOURS_OFFSIT.map do |y_offsit, x_offsit|
+      [y + y_offsit, x + x_offsit]
+    end
   end
 
   def valid_range?(range, max)
