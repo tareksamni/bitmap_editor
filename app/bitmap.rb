@@ -13,7 +13,7 @@ class Bitmap < Matrix
   def set_colour(y, x, colour)
     validate_coordinates!(y, x)
     pixel = self[y, x]
-    raise PixelNotFoundError, PixelNotFoundError if pixel.nil?
+    raise PixelNotFoundError, PIXEL_NOT_FOUND_MSG if pixel.nil?
     pixel.colour = colour
   end
 
