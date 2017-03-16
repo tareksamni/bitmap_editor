@@ -4,7 +4,7 @@ class Command
   InvalidFormatError = Class.new(StandardError)
   InvalidCommandError = Class.new(StandardError)
 
-  VALID_TYPES = %w(I C L V H S ? X).freeze
+  VALID_TYPES = %w(I C L V H S ? X F).freeze
   VALID_FORMAT_REGEX = /^([A-Z|\?])\s*(\d*)\s*(\d*)\s*(\d*)\s*([A-Z]*)$/
   INVALID_ERROR_MSG = 'Invalid format for the command, ? for help'
   INVALID_COMMAND_MSG = "Invalid command, possible commands are: #{VALID_TYPES.join(', ')}"
@@ -30,6 +30,8 @@ class Command
       range_colouring_params!(params)
     when 'H'
       range_colouring_params!(params)
+    when 'F'
+      colouring_params!(params)
     else
       validate_no_params!(params)
     end
