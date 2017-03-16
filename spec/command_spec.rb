@@ -36,6 +36,13 @@ describe Command do
         end
       end
 
+      context '`F X Y C`' do
+        let(:input) { 'F 2 3 C' }
+        it 'should not raise an invalid format error' do
+          should_not_raise_error
+        end
+      end
+
       context '`V X Y1 Y2 C`' do
         let(:input) { 'V 1 2 4 C' }
         it 'should not raise an invalid format error' do
@@ -131,6 +138,36 @@ describe Command do
             expect(command.x_range).to be_nil
             expect(command.y_range).to be_nil
             expect(command.colour).to be_nil
+          end
+        end
+      end
+
+      context '`F`' do
+        context 'with invalid params' do
+          context '(missing params)' do
+            let(:input) { 'F 1 2' }
+            it 'should raise invalid params error' do
+              should_raise_invalid_params_error
+            end
+          end
+
+          context '(extra params)' do
+            let(:input) { 'F 1 2 C 1' }
+            it 'should raise invalid params error' do
+              should_raise_invalid_params_error
+            end
+          end
+        end
+
+        context 'with valid params' do
+          let(:input) { 'F 1 2 C' }
+          it 'should set type, x, y and colour values' do
+            expect(command.type).to eq('F')
+            expect(command.x).to eq(1)
+            expect(command.y).to eq(2)
+            expect(command.x_range).to be_nil
+            expect(command.y_range).to be_nil
+            expect(command.colour).to eq('C')
           end
         end
       end
