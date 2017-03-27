@@ -51,6 +51,22 @@ describe Bitmap do
         end
       end
 
+      context 'using a valid (x,y)=(2,3) with same color as original' do
+        it 'should set pixels region colour' do
+          bitmap.set_colour(1, 1, 'X')
+          bitmap.set_colour(2, 1, 'X')
+          bitmap.set_colour(1, 2, 'R')
+          bitmap.set_colour(2, 2, 'R')
+          bitmap.set_colour(3, 2, 'X')
+          bitmap.fill(1, 1, 'X')
+          expect(bitmap[1, 1].to_s).to eq('X')
+          expect(bitmap[2, 1].to_s).to eq('X')
+          expect(bitmap[1, 2].to_s).to eq('R')
+          expect(bitmap[2, 2].to_s).to eq('R')
+          expect(bitmap[3, 2].to_s).to eq('X')
+        end
+      end
+
       context 'using a invalid (x,y)=(5,5)' do
         it 'should raise error' do
           expect { bitmap.fill(5, 5, 'X') }.to raise_error(Bitmap::OutOfImageCoordinatesError)
