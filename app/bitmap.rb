@@ -43,6 +43,7 @@ class Bitmap < Matrix
     pixel = self[y, x]
     raise PixelNotFoundError, PIXEL_NOT_FOUND_MSG if pixel.nil?
     target_pixel = pixel.dup
+    return if colour == pixel.colour
     pixel.colour = colour
     neighbours(y, x).each do |neighbour_y, neighbour_x|
       fill(neighbour_y, neighbour_x, colour) if should_fill?(neighbour_y, neighbour_x, target_pixel)
